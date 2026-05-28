@@ -218,9 +218,9 @@ const defaultKeybindings = {
 
     // shift+option+cmd+x should switch to task x
 
-    for (var i = 1; i < 10; i++) {
-      (function (i) {
-        keybindings.defineShortcut({ keys: 'shift+option+mod+' + i }, function (e) {
+    for (var taskNum = 1; taskNum < 10; taskNum++) {
+      (function (taskNum) {
+        keybindings.defineShortcut({ keys: 'shift+option+mod+' + taskNum }, function (e) {
           if (focusMode.enabled()) {
             focusMode.warn()
             return
@@ -248,7 +248,7 @@ const defaultKeybindings = {
       browserUI.addTab() // create a new, blank tab
     })
 
-    keybindings.defineShortcut('closeWindow', function() {
+    keybindings.defineShortcut('closeWindow', function () {
       ipc.invoke('close')
     })
 

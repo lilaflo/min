@@ -1,3 +1,4 @@
+/* eslint-disable standard/no-callback-literal */
 /*
 There are three possible ways that keybindings can be handled.
  Shortcuts that appear in the menubar are registered in main.js, and send IPC messages to the window (which are handled by menuRenderer.js)
@@ -20,6 +21,7 @@ Determines whether a shortcut can actually run
 single-letter shortcuts and shortcuts used for text editing can't run when an input is focused
 */
 function checkShortcutCanRun (combo, cb) {
+  // eslint-disable-next-line standard/no-callback-literal
   if (/^(shift)?\+?\w$/.test(combo) || combo === 'mod+left' || combo === 'mod+right') {
     webviews.callAsync(tabs.getSelected(), 'isFocused', function (err, isFocused) {
       if (err || !tabs.get(tabs.getSelected()).url || !isFocused) {
@@ -60,10 +62,11 @@ function checkShortcutCanRun (combo, cb) {
 }
 
 function defineShortcut (keysOrKeyMapName, fn, options = {}) {
+  var binding
   if (keysOrKeyMapName.keys) {
-    var binding = keysOrKeyMapName.keys
+    binding = keysOrKeyMapName.keys
   } else {
-    var binding = keyMap[keysOrKeyMapName]
+    binding = keyMap[keysOrKeyMapName]
   }
 
   if (typeof binding === 'string') {
