@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 var defaultFilteringSettings = {
   blockingLevel: 1,
   contentTypes: [],

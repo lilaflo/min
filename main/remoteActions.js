@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 /*
 Wraps APIs that are only available in the main process in IPC messages, so that the BrowserWindow can use them
 */
@@ -11,7 +13,7 @@ ipc.handle('startFileDrag', function (e, path) {
   })
 })
 
-function showFocusModeDialog1() {
+function showFocusModeDialog1 () {
   dialog.showMessageBox({
     type: 'info',
     buttons: [l('closeDialog')],
@@ -20,7 +22,7 @@ function showFocusModeDialog1() {
   })
 }
 
-function showFocusModeDialog2() {
+function showFocusModeDialog2 () {
   dialog.showMessageBox({
     type: 'info',
     buttons: [l('closeDialog')],
@@ -102,7 +104,7 @@ ipc.handle('setFullScreen', function (e, fullScreen) {
   windows.windowFromContents(e.sender).win.setFullScreen(e, fullScreen)
 })
 
-//workaround for https://github.com/electron/electron/issues/38540
+// workaround for https://github.com/electron/electron/issues/38540
 ipc.handle('showItemInFolder', function (e, path) {
   shell.showItemInFolder(path)
 })

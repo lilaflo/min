@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars, no-global-assign */
+
 function buildAppMenu (options = {}) {
   const keyMap = userKeyMap(settings.get('keyMap'))
 
@@ -299,16 +301,16 @@ function buildAppMenu (options = {}) {
               windows.getAll().forEach(win => sendIPCToWindow(win, 'enterFocusMode'))
 
               // wait to show the message until the tabs have been hidden, to make the message less confusing
-              setTimeout(function() {
+              setTimeout(function () {
                 showFocusModeDialog1()
-              }, 16);
+              }, 16)
             }
           }
         },
         {
           label: l('appMenuFullScreen'),
           accelerator: (function () {
-            if (process.platform == 'darwin') { return 'Ctrl+Command+F' } else { return 'F11' }
+            if (process.platform === 'darwin') { return 'Ctrl+Command+F' } else { return 'F11' }
           })(),
           role: 'togglefullscreen'
         }
@@ -320,7 +322,7 @@ function buildAppMenu (options = {}) {
         {
           label: l('appMenuInspectPage'),
           accelerator: (function () {
-            if (process.platform == 'darwin') { return 'Cmd+Alt+I' } else { return 'Ctrl+Shift+I' }
+            if (process.platform === 'darwin') { return 'Cmd+Alt+I' } else { return 'Ctrl+Shift+I' }
           })(),
           click: function (item, window) {
             sendIPCToWindow(window, 'inspectPage')
@@ -335,8 +337,8 @@ function buildAppMenu (options = {}) {
             sendIPCToWindow(window, 'inspectPage')
           }
         },
-        ...(isDevelopmentMode || isDebuggingEnabled ?
-          [
+        ...(isDevelopmentMode || isDebuggingEnabled
+          ? [
             {
               type: 'separator'
             },
@@ -399,7 +401,7 @@ function buildAppMenu (options = {}) {
             type: 'checkbox',
             checked: settings.get('windowAlwaysOnTop') || false,
             click: function (item, window) {
-              windows.getAll().forEach(function(win) {
+              windows.getAll().forEach(function (win) {
                 win.setAlwaysOnTop(item.checked)
               })
               settings.set('windowAlwaysOnTop', item.checked)

@@ -1,3 +1,4 @@
+/* eslint-disable standard/no-callback-literal */
 var pendingPermissions = []
 var grantedPermissions = []
 var nextPermissionId = 1
@@ -7,8 +8,8 @@ All permission requests are given to the renderer on each change,
 it will figure out what updates to make
 */
 function sendPermissionsToRenderers () {
-  //send all requests to all windows - the tab bar in each will figure out what to display
-  windows.getAll().forEach(function(win) {
+  // send all requests to all windows - the tab bar in each will figure out what to display
+  windows.getAll().forEach(function (win) {
     sendIPCToWindow(win, 'updatePermissions', pendingPermissions.concat(grantedPermissions).map(p => {
       // remove properties that can't be serialized over IPC
       return {
@@ -57,8 +58,8 @@ function isPermissionGrantedForOrigin (requestOrigin, requestPermission, request
           return true
         }
 
-        //type 3: a general media permission with no specific type
-        //occurs immediately after granting a more specific permission type
+        // type 3: a general media permission with no specific type
+        // occurs immediately after granting a more specific permission type
         if (!requestDetails.mediaType && !requestDetails.mediaTypes && grantedPermissions[i].permission === 'media') {
           return true
         }

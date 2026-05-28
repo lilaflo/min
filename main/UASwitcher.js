@@ -1,3 +1,4 @@
+/* eslint-disable standard/no-callback-literal */
 /* Use the same user agent as Chrome to improve site compatibility and increase fingerprinting resistance
 see https://github.com/minbrowser/min/issues/657 for more information */
 

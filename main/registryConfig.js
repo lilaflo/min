@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 var regedit = require('regedit')
 
 var installPath = process.execPath
@@ -116,9 +118,10 @@ var registryInstaller = {
   install: function () {
     return new Promise(function (resolve, reject) {
       regedit.createKey(keysToCreate, function (err) {
+        if (err) { return reject(new Error(err.message || 'Failed to create registry key')) }
         regedit.putValue(registryConfig, function (err) {
           if (err) {
-            reject()
+            reject(new Error(err.message || 'Failed to set registry value'))
           } else {
             resolve()
           }
@@ -130,7 +133,7 @@ var registryInstaller = {
     return new Promise(function (resolve, reject) {
       regedit.deleteKey(keysToCreate, function (err) {
         if (err) {
-          reject()
+          reject(new Error(err.message || 'Failed to delete registry key'))
         } else {
           resolve()
         }

@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
+
 const TouchBar = require('electron').TouchBar
 const nativeImage = require('electron').nativeImage
-const { TouchBarLabel, TouchBarButton, TouchBarSpacer } = TouchBar
+const { TouchBarButton, TouchBarSpacer } = TouchBar
 
 function buildTouchBar () {
   if (process.platform !== 'darwin') {

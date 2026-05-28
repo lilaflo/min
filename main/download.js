@@ -1,3 +1,4 @@
+/* eslint-disable standard/no-callback-literal */
 const currrentDownloadItems = {}
 
 ipc.on('cancelDownload', function (e, path) {
