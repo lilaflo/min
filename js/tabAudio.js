@@ -21,7 +21,7 @@ var tabAudio = {
     return button
   },
   updateButton: function (tabId, button) {
-    var button = button || document.querySelector('.tab-audio-button[data-tab="{id}"]'.replace('{id}', tabId))
+    button = button || document.querySelector('.tab-audio-button[data-tab="{id}"]'.replace('{id}', tabId))
     var tab = tabs.get(tabId)
 
     var muteIcon = tabAudio.muteIcon

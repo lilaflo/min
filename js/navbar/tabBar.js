@@ -190,7 +190,7 @@ const tabBar = {
     if (tabData.secure === true && insecureIcon) {
       insecureIcon.remove()
     } else if (tabData.secure === false && !insecureIcon) {
-      var insecureIcon = document.createElement('i')
+      insecureIcon = document.createElement('i')
       insecureIcon.className = 'icon-tab-not-secure tab-icon tab-info-icon i carbon:unlocked'
       insecureIcon.title = l('connectionNotSecure')
       iconArea.appendChild(insecureIcon)
