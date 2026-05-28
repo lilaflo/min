@@ -45,14 +45,14 @@ class ProcessSpawner {
 
       process.on('close', (code) => {
         if (code !== 0) {
-          reject({ error: this.error, data: this.data })
+          reject(new Error(this.error || 'Process exited with code ' + code))
         } else {
           resolve(this.data)
         }
       })
 
       process.on('error', (data) => {
-        reject({ error: data })
+        reject(new Error(data.error || 'Process error'))
       })
     })
   }

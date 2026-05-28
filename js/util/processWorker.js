@@ -1,3 +1,4 @@
+/* eslint-disable no-global-assign */
 const { spawnSync } = require('child_process')
 
 onmessage = function (e) {

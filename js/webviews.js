@@ -108,7 +108,7 @@ const webviews = {
   },
   events: [],
   IPCEvents: [],
-  hasViewForTab: function(tabId) {
+  hasViewForTab: function (tabId) {
     return tabId && tasks.getTaskContainingTab(tabId) && tasks.getTaskContainingTab(tabId).tabs.get(tabId).hasWebContents
   },
   bindEvent: function (event, fn) {
@@ -158,19 +158,20 @@ const webviews = {
         height: window.innerHeight
       }
     } else {
+      var navbarHgt
       if (!hasSeparateTitlebar && (window.platformType === 'linux' || window.platformType === 'windows') && !windowIsMaximized && !windowIsFullscreen) {
-        var navbarHeight = 48
+        navbarHgt = 48
       } else {
-        var navbarHeight = 36
+        navbarHgt = 36
       }
 
       const viewMargins = webviews.viewMargins
 
-      let position = {
+      const position = {
         x: 0 + Math.round(viewMargins[3]),
-        y: 0 + Math.round(viewMargins[0]) + navbarHeight,
+        y: 0 + Math.round(viewMargins[0]) + navbarHgt,
         width: window.innerWidth - Math.round(viewMargins[1] + viewMargins[3]),
-        height: window.innerHeight - Math.round(viewMargins[0] + viewMargins[2]) - navbarHeight
+        height: window.innerHeight - Math.round(viewMargins[0] + viewMargins[2]) - navbarHgt
       }
 
       return position
@@ -251,7 +252,7 @@ const webviews = {
         hasWebContents: false
       })
     }
-    //we may be destroying a view for which the tab object no longer exists, so this message should be sent unconditionally
+    // we may be destroying a view for which the tab object no longer exists, so this message should be sent unconditionally
     ipc.send('destroyView', id)
 
     delete webviews.viewFullscreenMap[id]

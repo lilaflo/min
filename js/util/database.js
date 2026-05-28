@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 // defines schema for the browsingData database
 // requires Dexie.min.js
 

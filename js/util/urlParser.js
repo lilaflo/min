@@ -1,3 +1,4 @@
+/* eslint-disable no-control-regex */
 const punycode = require('punycode/')
 
 const searchEngine = require('util/searchEngine.js')
