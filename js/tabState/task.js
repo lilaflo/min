@@ -1,3 +1,4 @@
+/* global windowId */
 const TabList = require('tabState/tab.js')
 const TabStack = require('tabRestore.js')
 
@@ -12,8 +13,6 @@ class TaskList {
   on (name, fn) {
     this.events.push({ name, fn })
   }
-
-  static temporaryProperties = ['selectedInWindow']
 
   emit (name, ...data) {
     this.events.forEach(listener => {
@@ -39,7 +38,7 @@ class TaskList {
       tabHistory: new TabStack(task.tabHistory),
       collapsed: task.collapsed, // this property must stay undefined if it is already (since there is a difference between "explicitly uncollapsed" and "never collapsed")
       id: task.id || String(TaskList.getRandomId()),
-      selectedInWindow: task.selectedInWindow || null,
+      selectedInWindow: task.selectedInWindow || null
     }
 
     if (index) {
@@ -55,8 +54,8 @@ class TaskList {
     return newTask.id
   }
 
-  update (id, data, emit=true) {
-    let task = this.get(id)
+  update (id, data, emit = true) {
+    const task = this.get(id)
 
     if (!task) {
       throw new ReferenceError('Attempted to update a task that does not exist.')
@@ -75,12 +74,12 @@ class TaskList {
 
   getStringifyableState () {
     return {
-      tasks: this.tasks.map(task => Object.assign({}, task, { tabs: task.tabs.getStringifyableState() })).map(function(task) {
-        //remove temporary properties from task
-        let result = {}
+      tasks: this.tasks.map(task => Object.assign({}, task, { tabs: task.tabs.getStringifyableState() })).map(function (task) {
+        // remove temporary properties from task
+        const result = {}
         Object.keys(task)
-        .filter(key => !TaskList.temporaryProperties.includes(key))
-        .forEach(key => result[key] = task[key])
+          .filter(key => !TaskList.temporaryProperties.includes(key))
+          .forEach(key => { result[key] = task[key] })
         return result
       })
     }
@@ -88,7 +87,7 @@ class TaskList {
 
   getCopyableState () {
     return {
-      tasks: this.tasks.map(task => Object.assign({}, task, {tabs: task.tabs.tabs}))
+      tasks: this.tasks.map(task => Object.assign({}, task, { tabs: task.tabs.tabs }))
     }
   }
 
@@ -112,7 +111,7 @@ class TaskList {
     return this.tasks.findIndex(task => task.id === id)
   }
 
-  setSelected (id, emit = true, onWindow=windowId) {
+  setSelected (id, emit = true, onWindow = windowId) {
     for (var i = 0; i < this.tasks.length; i++) {
       if (this.tasks[i].selectedInWindow === onWindow) {
         this.tasks[i].selectedInWindow = null
@@ -145,7 +144,7 @@ class TaskList {
     if (index < 0) return false
 
     this.tasks.splice(index, 1)
-  
+
     return index
   }
 
@@ -195,5 +194,7 @@ class TaskList {
     return Math.round(Math.random() * 100000000000000000)
   }
 }
+
+TaskList.temporaryProperties = ['selectedInWindow']
 
 module.exports = TaskList

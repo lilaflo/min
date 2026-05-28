@@ -4,11 +4,7 @@ class TabList {
     this.parentTaskList = parentTaskList
   }
 
-  //tab properties that shouldn't be saved to disk
-
-  static temporaryProperties = ['hasAudio', 'previewImage', 'loaded', 'hasWebContents']
-
-  add (tab = {}, options = {}, emit=true) {
+  add (tab = {}, options = {}, emit = true) {
     var tabId = String(tab.id || Math.round(Math.random() * 100000000000000000)) // you can pass an id that will be used, or a random one will be generated.
 
     var newTab = {
@@ -24,11 +20,11 @@ class TabList {
       scrollPosition: tab.scrollPosition || 0,
       selected: tab.selected || false,
       muted: tab.muted || false,
-      loaded: tab.loaded || false,
+      loaded: tab.loaded || false,
       hasAudio: false,
       previewImage: '',
       isFileView: false,
-      hasWebContents: false,
+      hasWebContents: false
     }
 
     if (options.atEnd) {
@@ -38,13 +34,13 @@ class TabList {
     }
 
     if (emit) {
-    this.parentTaskList.emit('tab-added', tabId, newTab, options, this.parentTaskList.getTaskContainingTab(tabId).id)
+      this.parentTaskList.emit('tab-added', tabId, newTab, options, this.parentTaskList.getTaskContainingTab(tabId).id)
     }
 
     return tabId
   }
 
-  update (id, data, emit=true) {
+  update (id, data, emit = true) {
     if (!this.has(id)) {
       throw new ReferenceError('Attempted to update a tab that does not exist.')
     }
@@ -68,7 +64,7 @@ class TabList {
     }
   }
 
-  destroy (id, emit=true) {
+  destroy (id, emit = true) {
     const index = this.getIndex(id)
     if (index < 0) return false
 
@@ -93,9 +89,9 @@ class TabList {
       }
       return tabsToReturn
     }
-    for (var i = 0; i < this.tabs.length; i++) {
-      if (this.tabs[i].id === id) {
-        return Object.assign({}, this.tabs[i])
+    for (var j = 0; j < this.tabs.length; j++) {
+      if (this.tabs[j].id === id) {
+        return Object.assign({}, this.tabs[j])
       }
     }
     return undefined
@@ -136,7 +132,7 @@ class TabList {
     return this.tabs[index] || undefined
   }
 
-  setSelected (id, emit=true) {
+  setSelected (id, emit = true) {
     if (!this.has(id)) {
       throw new ReferenceError('Attempted to select a tab that does not exist.')
     }
@@ -163,7 +159,7 @@ class TabList {
       this.splice(currentIndex, 1, newIndexTab)
       this.splice(newIndex, 1, currentTab)
     }
-    //This doesn't need to dispatch an event because splice will dispatch already
+    // This doesn't need to dispatch an event because splice will dispatch already
   }
 
   count () {
@@ -188,7 +184,7 @@ class TabList {
 
   splice (...args) {
     const containingTask = this.parentTaskList.find(t => t.tabs === this).id
-    
+
     this.parentTaskList.emit('tab-splice', containingTask, ...args)
     return this.tabs.splice.apply(this.tabs, args)
   }
@@ -198,19 +194,22 @@ class TabList {
   }
 
   toPermanentState (tab) {
-    //removes temporary properties of the tab that are lost on page reload
+    // removes temporary properties of the tab that are lost on page reload
 
-    let result = {}
-      Object.keys(tab)
+    const result = {}
+    Object.keys(tab)
       .filter(key => !TabList.temporaryProperties.includes(key))
-      .forEach(key => result[key] = tab[key])
-      
-      return result
+      .forEach(key => { result[key] = tab[key] })
+
+    return result
   }
 
   getStringifyableState () {
     return this.tabs.map(tab => this.toPermanentState(tab))
   }
 }
+
+// tab properties that shouldn't be saved to disk
+TabList.temporaryProperties = ['hasAudio', 'previewImage', 'loaded', 'hasWebContents']
 
 module.exports = TabList
