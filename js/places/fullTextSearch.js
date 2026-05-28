@@ -1,4 +1,5 @@
 /* global db Dexie */
+/* eslint-disable no-unused-vars */
 
 const stemmer = require('stemmer')
 
@@ -204,6 +205,7 @@ function fullTextPlacesSearch (searchText, callback) {
   const sl = searchWords.length
 
   if (searchWords.length === 0) {
+    // eslint-disable-next-line standard/no-callback-literal
     callback([])
     return
   }

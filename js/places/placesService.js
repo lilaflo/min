@@ -1,8 +1,7 @@
-/* global db performance searchPlaces fullTextPlacesSearch */
+/* global db searchPlaces fullTextPlacesSearch */
+/* eslint-disable standard/no-callback-literal */
 
 const { ipcRenderer } = require('electron')
-
-const spacesRegex = /[+\s._/-]+/g // things that could be considered spaces
 
 function calculateHistoryScore (item) { // item.boost - how much the score should be multiplied by. Example - 0.05
   let fs = item.lastVisit * (1 + 0.036 * Math.sqrt(item.visitCount))
@@ -256,7 +255,7 @@ function handleRequest (data, cb) {
   }
 
   if (action === 'getPlaceSuggestions') {
-    function returnSuggestionResults () {
+    const returnSuggestionResults = function () {
       const cTime = Date.now()
 
       let results = historyInMemoryCache.slice().filter(i => cTime - i.lastVisit < 604800000)
@@ -267,6 +266,11 @@ function handleRequest (data, cb) {
 
       results = results.sort(function (a, b) {
         return b.hScore - a.hScore
+      })
+
+      cb({
+        result: results.slice(0, 100),
+        callbackId: callbackId
       })
 
       cb({

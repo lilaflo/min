@@ -1,4 +1,5 @@
-/* global spacesRegex historyInMemoryCache calculateHistoryScore */
+/* eslint-disable no-unused-vars */
+/* global spacesRegex historyInMemoryCache calculateHistoryScore quickScore oneDayInMS */
 
 /* depends on placesWorker.js */
 
