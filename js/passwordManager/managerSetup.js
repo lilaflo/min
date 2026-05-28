@@ -1,4 +1,4 @@
-var { ipcRenderer } = require('electron')
+require('electron')
 var fs = require('fs')
 var path = require('path')
 

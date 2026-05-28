@@ -1,4 +1,5 @@
 /* send bookmarks data.  */
+/* eslint-disable standard/no-callback-literal */
 
 function isVisible (el) {
   // https://github.com/jquery/jquery/blob/305f193aa57014dc7d8fa0739a3fefd47166cd44/src/css/hiddenVisibleSelectors.js
@@ -45,8 +46,8 @@ function extractPageText (doc, win) {
   var tnl = textNodes.length
 
   // combine the text of all of the accepted text nodes together
-  for (var i = 0; i < tnl; i++) {
-    text += textNodes[i].textContent + ' '
+  for (var j = 0; j < tnl; j++) {
+    text += textNodes[j].textContent + ' '
   }
 
   // special meta tags
